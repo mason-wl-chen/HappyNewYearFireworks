@@ -364,15 +364,15 @@ body {
 
 /* 優化後的全屏入口按鈕 - 專為 iPhone Safari 設計：框框變小、更精緻 */
 #fullscreen-entry-btn {
-    position: absolute;
+    position: fixed !important;    /* 改用 fixed，永遠貼在螢幕 */
     top: 0; left: 0; right: 0; bottom: 0;
     display: flex;
     align-items: center;
     justify-content: center;
     background: rgba(0, 0, 0, 0.65); /* 背景更深一點，突出文字 */
-    z-index: 9999 !important;
+    z-index: 2147483647 !important;  /* 瀏覽器能設的最大 z-index */
     pointer-events: auto !important;
-    animation: fadeIn 1.5s ease-in;
+    touch-action: manipulation;
 }
 
 .entry-content {
@@ -431,7 +431,6 @@ body {
 }
 
 
-
 /* 只隱藏這三個按鈕 */
 .pause-btn,
 .sound-btn,
@@ -439,18 +438,10 @@ body {
     display: none !important;
 }
 
-/* 強制讓 canvas 不攔截任何觸摸/點擊事件（Safari 專殺） */
+/* 讓 canvas 永遠不吃事件（只負責畫圖） */
 #trails-canvas,
 #main-canvas {
     pointer-events: none !important;
-    touch-action: auto !important;  /* 部分 Safari 需要這行 */
+    position: absolute !important;
 }
 
-/* 確保全屏入口按鈕能吃到觸摸 */
-#fullscreen-entry-btn {
-    pointer-events: auto !important;
-    touch-action: manipulation !important;
-    z-index: 9999 !important;
-    position: absolute;
-    top: 0; left: 0; right: 0; bottom: 0;
-}
