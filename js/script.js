@@ -2645,4 +2645,37 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+// 5秒自動隱藏入口按鈕 + 點擊進入全屏
+document.addEventListener("DOMContentLoaded", function () {
+    const entryBtn = document.getElementById('fullscreen-entry-btn');
+    if (!entryBtn) return;
+
+    let timeoutId = null;
+
+    // 點擊 → 嘗試進入全屏
+    entryBtn.addEventListener('click', function () {
+        clearTimeout(timeoutId); // 取消倒數
+
+        if (fscreen.fullscreenEnabled) {
+            fscreen.requestFullscreen(document.documentElement);
+        }
+        
+        // 無論是否成功進入全屏，都立即隱藏按鈕
+        entryBtn.style.animation = 'fadeOut 0.8s forwards';
+        setTimeout(() => { entryBtn.style.display = 'none'; }, 800);
+    });
+
+    // 5秒內沒點 → 自動淡出隱藏
+    timeoutId = setTimeout(function () {
+        entryBtn.style.animation = 'fadeOut 1.2s forwards';
+        setTimeout(() => { entryBtn.style.display = 'none'; }, 1200);
+    }, 5000);
+
+    // 如果成功進入全屏，也隱藏按鈕（保險）
+    fscreen.addEventListener('fullscreenchange', function () {
+        if (fscreen.fullscreenElement) {
+            entryBtn.style.display = 'none';
+        }
+    });
+});
 
