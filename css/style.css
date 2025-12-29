@@ -422,3 +422,16 @@ body {
 .settings-btn {
     display: none !important;
 }
+
+/* 解決手機點不到全屏按鈕的根本問題 */
+#trails-canvas,
+#main-canvas {
+    pointer-events: none !important;
+}
+
+#fullscreen-entry-btn {
+    pointer-events: auto !important;
+    z-index: 9999 !important;
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+}
