@@ -378,7 +378,7 @@ body {
 .entry-content {
     text-align: center;
     color: white;
-    font-family: "Gabriola", "华文琥珀", "Segoe Script", cursive, sans-serif;
+    font-family: "Gabriola", "calibri", "Segoe Script", cursive, sans-serif;
     
     /* 框框變小了！ */
     max-width: 85%;           /* 原本可能100%，現在縮小 */
@@ -439,14 +439,17 @@ body {
     display: none !important;
 }
 
-/* 解決手機點不到全屏按鈕的根本問題 */
+/* 強制讓 canvas 不攔截任何觸摸/點擊事件（Safari 專殺） */
 #trails-canvas,
 #main-canvas {
     pointer-events: none !important;
+    touch-action: auto !important;  /* 部分 Safari 需要這行 */
 }
 
+/* 確保全屏入口按鈕能吃到觸摸 */
 #fullscreen-entry-btn {
     pointer-events: auto !important;
+    touch-action: manipulation !important;
     z-index: 9999 !important;
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
