@@ -2623,31 +2623,40 @@ if (IS_HEADER) {
 	}, 0);
 }
 
-// 全屏入口按鈕功能（使用你已載入的 fscreen.js）
+// 全屏入口按鈕功能 - iPhone Safari 專用加強版
 document.addEventListener("DOMContentLoaded", function () {
     const entryBtn = document.getElementById('fullscreen-entry-btn');
     if (!entryBtn) return;
 
+    // 點擊入口按鈕 → 進入全屏
     entryBtn.addEventListener('click', function () {
         if (fscreen.fullscreenEnabled) {
             fscreen.requestFullscreen(document.documentElement);
         }
     });
 
-    // 監聽全屏狀態變化
+    // 監聽全屏變化
     fscreen.addEventListener('fullscreenchange', function () {
         if (fscreen.fullscreenElement) {
-            // 已進入全屏 → 隱藏入口按鈕
+            // 已進入全屏 → 隱藏入口按鈕 + 讓 canvas 可以被點（手動放煙花）
             entryBtn.style.display = 'none';
+            
+            document.getElementById('trails-canvas').style.pointerEvents = 'auto';
+            document.getElementById('main-canvas').style.pointerEvents = 'auto';
         } else {
-            // 退出全屏 → 重新顯示按鈕
+            // 退出全屏 → 顯示入口按鈕 + 再次禁用 canvas 點擊（避免干擾）
             entryBtn.style.display = 'flex';
+            
+            document.getElementById('trails-canvas').style.pointerEvents = 'none';
+            document.getElementById('main-canvas').style.pointerEvents = 'none';
         }
     });
 
-    // 如果頁面載入時已在全屏（例如手機「加入主畫面」後打開），直接隱藏按鈕
+    // 頁面載入時如果已在全屏，直接隱藏按鈕並啟用 canvas 點擊
     if (fscreen.fullscreenElement) {
         entryBtn.style.display = 'none';
+        document.getElementById('trails-canvas').style.pointerEvents = 'auto';
+        document.getElementById('main-canvas').style.pointerEvents = 'auto';
     }
 });
 
