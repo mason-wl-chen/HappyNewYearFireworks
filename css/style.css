@@ -362,59 +362,75 @@ body {
 	transition-duration: 0.4s;
 }
 
-/* 全屏入口按鈕樣式 - 手機電腦都好看 */
+/* 優化後的全屏入口按鈕 - 專為 iPhone Safari 設計：框框變小、更精緻 */
 #fullscreen-entry-btn {
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.7);
-    z-index: 1000;
-    cursor: pointer;
-    animation: fadeIn 1s ease-in;
+    background: rgba(0, 0, 0, 0.65); /* 背景更深一點，突出文字 */
+    z-index: 9999 !important;
+    pointer-events: auto !important;
+    animation: fadeIn 1.5s ease-in;
 }
 
 .entry-content {
     text-align: center;
     color: white;
     font-family: "Gabriola", "华文琥珀", "Segoe Script", cursive, sans-serif;
-    padding: 30px 50px;
-    border: 3px solid rgba(255, 255, 255, 0.4);
-    border-radius: 30px;
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(5px);
-    box-shadow: 0 0 30px rgba(255, 100, 255, 0.6);
-    animation: pulse 3s infinite;
+    
+    /* 框框變小了！ */
+    max-width: 85%;           /* 原本可能100%，現在縮小 */
+    padding: 24px 32px;       /* 內距減小 */
+    border: 3px solid rgba(255, 255, 255, 0.5);
+    border-radius: 28px;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px); /* Safari 支援很好的毛玻璃效果 */
+    box-shadow: 0 10px 30px rgba(255, 100, 255, 0.4);
+    animation: gentlePulse 4s infinite;
 }
 
 .entry-content h1 {
-    font-size: 48px;
-    margin: 0 0 20px 0;
-    text-shadow: 0 0 20px #ff00de, 0 0 40px #ff00de;
+    font-size: 36px;          /* 原來48px → 36px，更秀氣 */
+    margin: 0 0 16px 0;
+    text-shadow: 0 0 20px #ff00de, 0 0 30px #ff00de;
+    line-height: 1.2;
 }
 
 .entry-content p {
-    font-size: 28px;
-    margin: 10px 0;
-    text-shadow: 0 0 15px #ffffff;
+    font-size: 22px;          /* 調整副標大小 */
+    margin: 8px 0;
+    text-shadow: 0 0 10px #ffffff;
 }
 
+/* iPhone 小螢幕進一步優化 */
 @media (max-width: 768px) {
-    .entry-content h1 { font-size: 36px; }
-    .entry-content p { font-size: 22px; }
-    .entry-content { padding: 20px 30px; }
+    .entry-content {
+        max-width: 90%;
+        padding: 20px 28px;
+        border-radius: 24px;
+    }
+    .entry-content h1 {
+        font-size: 32px;
+    }
+    .entry-content p {
+        font-size: 20px;
+    }
 }
 
-@keyframes pulse {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.05); }
+/* 溫柔脈動動畫（比原本更緩慢優雅） */
+@keyframes gentlePulse {
+    0%, 100% { transform: scale(1); opacity: 0.9; }
+    50% { transform: scale(1.03); opacity: 1; }
 }
 
 @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
 }
+
+
 
 /* 只隱藏這三個按鈕 */
 .pause-btn,
