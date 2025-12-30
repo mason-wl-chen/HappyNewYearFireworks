@@ -2645,7 +2645,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
-// 5秒自動隱藏入口按鈕 + 點擊進入全屏
+// 12秒自動隱藏入口按鈕 + 點擊進入全屏
 document.addEventListener("DOMContentLoaded", function () {
     const entryBtn = document.getElementById('fullscreen-entry-btn');
     if (!entryBtn) return;
@@ -2665,11 +2665,11 @@ document.addEventListener("DOMContentLoaded", function () {
         setTimeout(() => { entryBtn.style.display = 'none'; }, 800);
     });
 
-    // 5秒內沒點 → 自動淡出隱藏
+    // 12秒內沒點 → 自動淡出隱藏
     timeoutId = setTimeout(function () {
         entryBtn.style.animation = 'fadeOut 1.2s forwards';
         setTimeout(() => { entryBtn.style.display = 'none'; }, 1200);
-    }, 5000);
+    }, 12000);
 
     // 如果成功進入全屏，也隱藏按鈕（保險）
     fscreen.addEventListener('fullscreenchange', function () {
@@ -2678,4 +2678,39 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+
+
+// 背景音樂控制 - 用戶互動後自動播放
+document.addEventListener("DOMContentLoaded", function () {
+    const bgm = document.getElementById('bgm');
+    if (!bgm) return;
+
+    // 讓音樂準備好
+    bgm.volume = 0.4; // 音量 40%，不要蓋過煙花聲音
+
+    // 定義播放函數
+    function playBGM() {
+        bgm.play().catch(e => console.log("播放失敗（正常，手機限制）:", e));
+    }
+
+    // 方法 A：如果有入口按鈕，點擊時播放
+    const entryBtn = document.getElementById('fullscreen-entry-btn');
+    if (entryBtn) {
+        entryBtn.addEventListener('click', playBGM);
+    }
+
+    // 方法 B：點螢幕任意處也播放（保險）
+    document.body.addEventListener('click', function handler() {
+        playBGM();
+        // 只觸發一次
+        document.body.removeEventListener('click', handler);
+    });
+
+    // 方法 C：如果有 touch 也觸發（手機專用）
+    document.body.addEventListener('touchstart', function handler() {
+        playBGM();
+        document.body.removeEventListener('touchstart', handler);
+    });
+});
+
 
