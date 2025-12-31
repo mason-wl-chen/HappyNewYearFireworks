@@ -91,6 +91,11 @@ const randomWords = [
     "2026 ĐÃ ĐẾN | Vân ơi cố lên!",
     "CHÚC MỪNG | Vân là nhất luôn",
     "TẾT VUI VẺ | Vân cười thật tươi nha",
+	"新年快樂|萬事如意",
+	"LOVE YOU | ♡",
+	"恭喜發財|大吉大利",
+	"CHÚC MỪNG NĂM MỚI | ♡",
+	"HAPPY NEW YEAR | ",
     // 繼續加你喜歡的祝福語...
 ];
 // 預先計算所有文字的點陣圖（提升性能，避免重複計算）
