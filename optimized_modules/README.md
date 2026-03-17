@@ -1,0 +1,1 @@
+# Optimized JavaScript Modules\n\n- fireworks.js   \n- render.js  \n- utils.js   \n\n## Description\nThis folder contains optimized modules for the HappyNewYearFireworks project. Each module handles specific functionality to improve the maintainability and organization of the project.
